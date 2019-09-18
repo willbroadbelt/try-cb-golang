@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/couchbase/gocb"
 	"github.com/couchbase/gocb/cbft"
+	"github.com/couchbase/gocb/v2"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gorilla/mux"
 	"math"
@@ -525,6 +525,8 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
+	globalCluster.Authenticate(gocb.PasswordAuthenticator{Username: "Administrator", Password: "password"})
 
 	globalBucket, err = globalCluster.OpenBucket(cbBucket, cbPassword)
 	if err != nil {
